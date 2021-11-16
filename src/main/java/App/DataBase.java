@@ -37,13 +37,20 @@ public class DataBase implements UserList{
         else System.out.println("Connected is FAIL!");
         try {
             statement=connection.createStatement();
+            statement.execute(creatDb());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return statement;
     }
 
-
+    private  String creatDb(){
+        String create="CREATE TABLE IF NOT EXISTS public.users ("+
+    "chatid integer NOT NULL,"+
+    "valuta character varying(20), inf boolean,minimum real,"+
+    "maximum real,stavka real,CONSTRAINT users_pkey PRIMARY KEY (chatid))";
+    return create;
+    }
 
 
 
@@ -111,4 +118,18 @@ public class DataBase implements UserList{
             e.printStackTrace();
         }
     }
+
+
+
+
 }
+//CREATE TABLE IF NOT EXISTS public.users
+//(
+//    chatid integer NOT NULL,
+//    valuta character varying(20) COLLATE pg_catalog."default",
+//    inf boolean,
+//    minimum real,
+//    maximum real,
+//    stavka real,
+//    CONSTRAINT users_pkey PRIMARY KEY (chatid)
+//)
