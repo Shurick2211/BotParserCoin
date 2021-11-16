@@ -12,12 +12,14 @@ public class User implements Serializable {
     private double stavka;
     private transient double kurs=0.0;
 
-    public User(String chatId, String valuta, double min, double max, double stavka) {
+    public User(String chatId, boolean info, String valuta, double min, double max, double stavka) {
+        this.info=info;
         this.chatId = chatId;
         this.valuta = valuta;
         this.min = min;
         this.max = max;
         this.stavka = stavka;
+
     }
 
     public boolean isInfo() {
@@ -40,6 +42,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "chatId='" + chatId + '\'' +
+                ", info='" + info + '\'' +
                 ", valuta='" + valuta + '\'' +
                 ", min=" + min +
                 ", max=" + max +

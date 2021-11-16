@@ -44,7 +44,7 @@ public class RegComand implements Comand{
                 }else{
                     mess = "min изменен!";
                     user.doRegistration=0;
-                    UserBox.saveUsers(new Serial());
+                    UserBox.saveUsers(new DataBase());
                 }
                 sendMessService.send(message.getChatId().toString(), mess);
                 break;
@@ -74,7 +74,7 @@ public class RegComand implements Comand{
                 else {
                     mess="MAX изменен!";
                     user.doRegistration = 0;
-                    UserBox.saveUsers(new Serial());
+                    UserBox.saveUsers(new DataBase());
                 }
                 sendMessService.send(message.getChatId().toString(), mess);
 
@@ -105,7 +105,7 @@ public class RegComand implements Comand{
                 mess = "Регистрация завершена!";
                 sendMessService.send(message.getChatId().toString(), mess);
                 user.doRegistration = 0;
-                UserBox.saveUsers(new Serial());
+                UserBox.saveUsers(new DataBase());
                 System.out.println(user);
 
                 break;
@@ -114,7 +114,7 @@ public class RegComand implements Comand{
 
             default : {
                 if (UserBox.getUser(message.getChatId().toString()) == null){
-                    UserBox.users.add(new User(message.getChatId().toString(), "", 0.0, 0.0, 0.0));
+                    UserBox.users.add(new User(message.getChatId().toString(),false, "", 0.0, 0.0, 0.0));
                     user=UserBox.getUser(message.getChatId().toString());}
                 else {
                     UserBox.getUser(message.getChatId().toString()).setMin(0.0);
