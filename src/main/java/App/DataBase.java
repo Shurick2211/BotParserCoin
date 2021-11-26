@@ -106,7 +106,7 @@ public class DataBase implements UserList{
 
     }
     private void dbConfig(){
-        final String rootPath ="resources/DataBase.properties";
+        final String rootPath ="resources/DataBaseHeroku.properties";
         Properties dbProps = new Properties();
         try {
             dbProps.load(new FileInputStream(rootPath));
