@@ -1,4 +1,4 @@
-/resources/bot.properties/
-/resources/DataBase.properties/
-/resources/DataBaseHeroku.properties/
+/resources/bot.properties
+/resources/DataBase.properties
+/resources/DataBaseHeroku.properties
 /out/
