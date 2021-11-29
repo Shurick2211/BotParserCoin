@@ -106,6 +106,24 @@ public class DataBase implements UserList{
 
 
     }
+
+    @Override
+    public void deletUser(User user) {
+        sql="DELETE FROM users WHERE chatid="+"'"+Integer.parseInt(user.getChatId())+"'";
+
+
+        try {
+
+            statementBD().execute(sql);
+            System.out.println("User chatId="+user.getChatId()+" deleted!" );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
     private void dbConfig(){
         final String rootPath ="resources/DataBaseHeroku.properties";
         Properties dbProps = new Properties();

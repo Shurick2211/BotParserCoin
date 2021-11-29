@@ -121,9 +121,9 @@ public class RegComand implements Comand{
                     UserBox.getUser(message.getChatId().toString()).setMax(0.0);
                     mess = "\n Вы зарегестрированы, меняем ваши данные!";}
                 mess += "\nВыберите валюту:";
-                user.doRegistration++;
+                user.doRegistration=1;
                 StringBuilder name = new StringBuilder();
-                for (Valuta n : ParseKurce.valutas) name.append(n.getName()).append("/");
+                ParseKurce.valutas.forEach(v->name.append(v.getName()).append("/"));
                 mess = name + "=" + mess;
                 sendMessService = new SendMessInline();
                 sendMessService.send(message.getChatId().toString(), mess);

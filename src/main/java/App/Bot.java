@@ -51,16 +51,17 @@ public class Bot extends TelegramLongPollingBot {
             String idinteficator = message.split(" ")[0].toLowerCase();
             System.out.println(idinteficator);
             comandBox.useComand(idinteficator).execute(update.getMessage());
-        } else if (doReg > 0) {
-            comandBox.useComand("/reg").execute(update.getMessage());
-        } else {
-            comandBox.useComand("NO").execute(update.getMessage());
-        }
-        if (doReg == 0)
-        {
-            comandBox = new ComandBox(new SendMessButton());
-            comandBox.useComand("BUTTON").execute(update.getMessage());
-        }
+        } else
+
+            if (doReg > 0) {
+                comandBox.useComand("/reg").execute(update.getMessage());
+            } else
+
+            {
+                comandBox.useComand("NO").execute(update.getMessage());
+                comandBox = new ComandBox(new SendMessButton());
+                comandBox.useComand("BUTTON").execute(update.getMessage());
+            }
 
     }else
     if(update.hasCallbackQuery()){

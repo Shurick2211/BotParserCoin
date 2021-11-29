@@ -6,4 +6,5 @@ public interface UserList {
 
      ArrayList<User> users();
      void saveUserList(ArrayList<User> users);
+     void deletUser(User user);
 }
