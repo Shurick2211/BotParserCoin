@@ -19,10 +19,13 @@ public class DataBase implements UserList{
         dbConfig();
 
         try {
+            DriverManager.registerDriver(new org.postgresql.Driver());
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println("Driver Failed");
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         Connection connection = null;
         Statement statement=null;
