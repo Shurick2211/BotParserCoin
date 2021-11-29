@@ -21,6 +21,7 @@ public class DataBase implements UserList{
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
+            System.out.println("Driver Failed");
             e.printStackTrace();
         }
         Connection connection = null;
