@@ -2,6 +2,7 @@ package Comand;
 
 import App.Bot;
 import App.ParseKurce;
+import App.Serial;
 import App.UserBox;
 import org.telegram.telegrambots.api.methods.send.SendDocument;
 import org.telegram.telegrambots.api.objects.Message;
@@ -40,10 +41,17 @@ public class NoComand implements Comand{
             }
             case "качать users":{
                 try {
+                    Serial.serData("resources/users.dat",UserBox.users);
                     Bot.bot().sendDocument(new SendDocument().setChatId("1005227074").setNewDocument(new File("resources/users.dat")));
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
+                break;
+            }
+            case "STOP":{
+                ComandBox comandBox=new ComandBox(sendMessService);
+                comandBox.useComand("/stop").execute(message);
+
                 break;
             }
             default : {

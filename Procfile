@@ -1,1 +1,0 @@
-workerJ: java -jar target/BotParser.jar

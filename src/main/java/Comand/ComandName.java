@@ -2,6 +2,7 @@ package Comand;
 
 public enum ComandName {
     START("/start"),
+    STOP("/stop"),
     REG("/reg"),
     HELP("/help"),
     BUTTON("BUTTON"),

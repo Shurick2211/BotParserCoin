@@ -20,6 +20,7 @@ public class ComandBox {
                 .put(HELP.getComandName(), new HelpComand(sendMessService))
                 .put(NO.getComandName(), new NoComand(sendMessService))
                 .put(BUTTON.getComandName(), new BUTTON(sendMessService))
+                .put(STOP.getComandName(), new StopComand(sendMessService))
                 .build();
         unknowComand=new UnknowComand(sendMessService);
 

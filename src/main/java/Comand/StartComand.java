@@ -16,5 +16,7 @@ public class StartComand implements Comand{
     }
 
     @Override
-    public void execute(Message message) { sendMessService.send(message.getChatId().toString(),mess); }
+    public void execute(Message message) {
+
+        sendMessService.send(message.getChatId().toString(),mess); }
 }

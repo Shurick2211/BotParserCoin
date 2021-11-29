@@ -56,7 +56,7 @@ public class Bot extends TelegramLongPollingBot {
         } else {
             comandBox.useComand("NO").execute(update.getMessage());
         }
-        if (UserBox.getUser(update.getMessage().getChatId().toString()).doRegistration == 0)
+        if (doReg == 0)
         {
             comandBox = new ComandBox(new SendMessButton());
             comandBox.useComand("BUTTON").execute(update.getMessage());

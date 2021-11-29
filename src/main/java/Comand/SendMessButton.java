@@ -24,7 +24,8 @@ public class SendMessButton implements SendMessService{
         sendMessage.setChatId(chatId);
         sendMessage.enableMarkdown(true);
         sendMessage.enableHtml(true);
-        sendMessage.setText("Тут может быть ваша реклама!");
+        String message="Тут может быть ваша реклама!";
+        sendMessage.setText(message);
 
         try {
             setButtons(sendMessage, names);
