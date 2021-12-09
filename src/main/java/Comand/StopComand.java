@@ -1,5 +1,6 @@
 package Comand;
 
+import App.Bot;
 import App.DataBase;
 import App.UserBox;
 
@@ -15,10 +16,12 @@ public class StopComand implements Comand{
 
     @Override
     public void execute(Message message) {
+        Bot.logger.info("Comand STOP: "+message.getChatId().toString());
         sendMessService.send(message.getChatId().toString(),mess);
         UserBox.deleteUser(UserBox.getUser(message.getChatId().toString()), new DataBase());
         UserBox.users.remove(UserBox.getUser(message.getChatId().toString()));
-
+        ComandBox comandBox = new ComandBox(new SendMessButton());
+        comandBox.useComand("BUTTON").execute(message);
 
     }
 }

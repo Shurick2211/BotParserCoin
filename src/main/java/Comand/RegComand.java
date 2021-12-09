@@ -1,9 +1,6 @@
 package Comand;
 
-import App.DataBase;
-import App.ParseKurce;
-import App.User;
-import App.UserBox;
+import App.*;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 
@@ -17,6 +14,7 @@ public class RegComand implements Comand{
 
     @Override
     public void execute(Message message) {
+        Bot.logger.info("Comand Reg");
         User user=UserBox.getUser(message.getChatId().toString());
         int doReg;
         if (user==null)doReg=0;
@@ -111,7 +109,8 @@ public class RegComand implements Comand{
                 user.doRegistration = 0;
                 UserBox.saveUsers(new DataBase());
                 System.out.println(user);
-
+                ComandBox comandBox = new ComandBox(new SendMessButton());
+                comandBox.useComand("BUTTON").execute(message);
                 break;
             }
 

@@ -22,6 +22,7 @@ public class NoComand implements Comand{
 
     @Override
     public void execute(Message message) {
+
         switch (message.getText()){
             case "Регистрация" :
             case  "Изменить валюту" : {

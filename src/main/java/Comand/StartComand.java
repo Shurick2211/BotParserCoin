@@ -1,5 +1,6 @@
 package Comand;
 
+import App.Bot;
 import App.UserBox;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -19,7 +20,11 @@ public class StartComand implements Comand{
 
     @Override
     public void execute(Message message) {
+        Bot.logger.info("Comand Start: "+message.getChatId().toString());
         if(UserBox.getUser(message.getChatId().toString())!=null)
             mess="Привет! Вы наш клиент!";
-        sendMessService.send(message.getChatId().toString(),mess); }
+        sendMessService.send(message.getChatId().toString(),mess);
+        ComandBox comandBox = new ComandBox(new SendMessButton());
+        comandBox.useComand("BUTTON").execute(message);
+    }
 }
