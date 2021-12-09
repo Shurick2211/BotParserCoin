@@ -1,7 +1,10 @@
 package Comand;
 
-import App.*;
-import org.telegram.telegrambots.api.objects.Message;
+import App.DataBase;
+import App.ParseKurce;
+import App.User;
+import App.UserBox;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 
 public class RegComand implements Comand{
@@ -94,10 +97,11 @@ public class RegComand implements Comand{
                 assert user != null;
                 user.setStavka(stavka);
                 user.setKurs(ParseKurce.getValuta(user.getValuta()).getKurs());
+                user.doRegistration++;
                 mess ="ДА/Нет="+"Оповещать об измениях курса между min и MAX?";
                 sendMessService = new SendMessInline();
                 sendMessService.send(message.getChatId().toString(), mess);
-                user.doRegistration++;
+
                 break;
             }
             case 5:{

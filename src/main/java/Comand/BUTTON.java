@@ -1,7 +1,7 @@
 package Comand;
 
 import App.UserBox;
-import org.telegram.telegrambots.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class BUTTON implements Comand{
     private final SendMessService sendMessService;

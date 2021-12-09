@@ -2,7 +2,8 @@ package Comand;
 
 import App.DataBase;
 import App.UserBox;
-import org.telegram.telegrambots.api.objects.Message;
+
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class StopComand implements Comand{
     private final SendMessService sendMessService;

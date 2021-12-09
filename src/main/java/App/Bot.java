@@ -3,38 +3,47 @@ package App;
 import Comand.ComandBox;
 import Comand.SendMess;
 import Comand.SendMessButton;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 public class Bot extends TelegramLongPollingBot {
 
     private static String BOTTOKEN;
-    private static String BOTNAME;
+    private  static String BOTNAME;
     private static Bot bot;
 
-
     ComandBox comandBox;
+    private static final Map<String, String> getenv = System.getenv();
+
 
     public static Bot bot() {
         if (bot==null) {
             botConfig();
-           ApiContextInitializer.init();
-           TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-           bot = new Bot();
-           try {
-               telegramBotsApi.registerBot(bot);
 
-           } catch (TelegramApiRequestException e) {
-               e.printStackTrace();
-           }
-       }
+            TelegramBotsApi telegramBotsApi = null;
+            try {
+                telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+            bot = new Bot();
+
+            try {
+                telegramBotsApi.registerBot(bot);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+
+        }
         return bot;
     }
 

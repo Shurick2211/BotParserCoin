@@ -1,6 +1,6 @@
 package Comand;
 
-import org.telegram.telegrambots.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class HelpComand implements Comand{
     private final SendMessService sendMessService;

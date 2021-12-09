@@ -4,9 +4,11 @@ import App.Bot;
 import App.ParseKurce;
 import App.Serial;
 import App.UserBox;
-import org.telegram.telegrambots.api.methods.send.SendDocument;
-import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
+
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
 
@@ -42,7 +44,12 @@ public class NoComand implements Comand{
             case "качать users":{
                 try {
                     Serial.serData("resources/users.dat",UserBox.users);
-                    Bot.bot().sendDocument(new SendDocument().setChatId("1005227074").setNewDocument(new File("resources/users.dat")));
+
+                    SendDocument sendDocument=new SendDocument();
+                    sendDocument.setChatId("1005227074");
+                    sendDocument.setDocument(new InputFile(new File("resources/users.dat")));
+                    Bot.bot().execute(sendDocument);
+
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }

@@ -1,7 +1,8 @@
 package Comand;
 
 import App.UserBox;
-import org.telegram.telegrambots.api.objects.Message;
+
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class StartComand implements Comand{
     private final SendMessService sendMessService;
@@ -18,7 +19,7 @@ public class StartComand implements Comand{
 
     @Override
     public void execute(Message message) {
-        if(!UserBox.getUser(message.getChatId().toString()).equals(null))
+        if(UserBox.getUser(message.getChatId().toString())!=null)
             mess="Привет! Вы наш клиент!";
         sendMessService.send(message.getChatId().toString(),mess); }
 }
