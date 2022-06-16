@@ -57,6 +57,11 @@ public class Serial implements UserList {
             serData(USERSPATH, users);
     }
 
+    @Override
+    public void deletUser(User user) {
+
+    }
+
 
 }
 

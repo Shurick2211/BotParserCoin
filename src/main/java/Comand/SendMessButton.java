@@ -1,11 +1,11 @@
 package Comand;
 
 import App.Bot;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,8 @@ public class SendMessButton implements SendMessService{
         sendMessage.setChatId(chatId);
         sendMessage.enableMarkdown(true);
         sendMessage.enableHtml(true);
-        sendMessage.setText("Тут может быть ваша реклама!");
+        String message="Тут может быть ваша реклама!";
+        sendMessage.setText(message);
 
         try {
             setButtons(sendMessage, names);

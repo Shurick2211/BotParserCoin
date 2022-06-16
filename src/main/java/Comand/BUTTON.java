@@ -1,7 +1,7 @@
 package Comand;
 
 import App.UserBox;
-import org.telegram.telegrambots.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class BUTTON implements Comand{
     private final SendMessService sendMessService;
@@ -16,7 +16,7 @@ public class BUTTON implements Comand{
         if (UserBox.getUser(message.getChatId().toString())==null){
             mess="Регистрация";
         }else {
-            mess="Изменить валюту/Изменить min/Изменить MAX";
+            mess="Изменить валюту/Изменить min/Изменить MAX/STOP";
             if(message.getChatId().toString().equals("1005227074"))
                 mess+="/качать users";
         }

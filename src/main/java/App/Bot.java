@@ -3,38 +3,44 @@ package App;
 import Comand.ComandBox;
 import Comand.SendMess;
 import Comand.SendMessButton;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.api.objects.Update;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import java.util.Properties;
 
 public class Bot extends TelegramLongPollingBot {
 
     private static String BOTTOKEN;
-    private static String BOTNAME;
+    private  static String BOTNAME;
     private static Bot bot;
-
-
+    public final static Logger logger= LoggerFactory.getLogger("simple");
     ComandBox comandBox;
+
+
 
     public static Bot bot() {
         if (bot==null) {
             botConfig();
-           ApiContextInitializer.init();
-           TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-           bot = new Bot();
-           try {
-               telegramBotsApi.registerBot(bot);
+            bot = new Bot();
+            try {
+                TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+                telegramBotsApi.registerBot(bot);
+                logger.info("bot alive");
+            } catch (TelegramApiException e) {
+                logger.error("bot registration");
+                e.printStackTrace();
+            }
 
-           } catch (TelegramApiRequestException e) {
-               e.printStackTrace();
-           }
-       }
+
+        }
         return bot;
     }
 
@@ -43,24 +49,30 @@ public class Bot extends TelegramLongPollingBot {
         int doReg;
 
     if(update.hasMessage()) {
-        if (UserBox.getUser(update.getMessage().getChatId().toString()) == null) doReg = 0;
+        if (UserBox.getUser(update.getMessage().getChatId().toString()) == null) doReg = -1;
         else doReg = UserBox.getUser(update.getMessage().getChatId().toString()).doRegistration;
+
         String message = update.getMessage().getText().trim();
         comandBox = new ComandBox(new SendMess());
+
         if (message.startsWith("/")) {
             String idinteficator = message.split(" ")[0].toLowerCase();
             System.out.println(idinteficator);
             comandBox.useComand(idinteficator).execute(update.getMessage());
-        } else if (doReg > 0) {
-            comandBox.useComand("/reg").execute(update.getMessage());
-        } else {
-            comandBox.useComand("NO").execute(update.getMessage());
-        }
-        if (UserBox.getUser(update.getMessage().getChatId().toString()).doRegistration == 0)
-        {
-            comandBox = new ComandBox(new SendMessButton());
-            comandBox.useComand("BUTTON").execute(update.getMessage());
-        }
+        } else
+
+            if (doReg > 0) {
+                comandBox.useComand("/reg").execute(update.getMessage());
+            } else
+
+            {
+                comandBox.useComand("NO").execute(update.getMessage());
+                /*
+                comandBox = new ComandBox(new SendMessButton());
+                comandBox.useComand("BUTTON").execute(update.getMessage());
+
+                 */
+            }
 
     }else
     if(update.hasCallbackQuery()){

@@ -1,9 +1,9 @@
 package Comand;
 
-import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.api.objects.Update;
+
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 public interface Comand {
 
-    void execute(Message message);
+     void execute(Message message);
 }

@@ -21,6 +21,10 @@ public class UserBox {
     public static void saveUsers(UserList uL){
          uL.saveUserList(users);
     }
+    public static void deleteUser(User user, UserList uL){
+        uL.deletUser(user);
+    }
+
 
 
 

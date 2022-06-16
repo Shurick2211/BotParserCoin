@@ -1,7 +1,7 @@
 package Comand;
 
 import App.*;
-import org.telegram.telegrambots.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 
 public class RegComand implements Comand{
@@ -14,6 +14,7 @@ public class RegComand implements Comand{
 
     @Override
     public void execute(Message message) {
+        Bot.logger.info("Comand Reg");
         User user=UserBox.getUser(message.getChatId().toString());
         int doReg;
         if (user==null)doReg=0;
@@ -44,7 +45,7 @@ public class RegComand implements Comand{
                 }else{
                     mess = "min изменен!";
                     user.doRegistration=0;
-                    UserBox.saveUsers(new Serial());
+                    UserBox.saveUsers(new DataBase());
                 }
                 sendMessService.send(message.getChatId().toString(), mess);
                 break;
@@ -74,7 +75,7 @@ public class RegComand implements Comand{
                 else {
                     mess="MAX изменен!";
                     user.doRegistration = 0;
-                    UserBox.saveUsers(new Serial());
+                    UserBox.saveUsers(new DataBase());
                 }
                 sendMessService.send(message.getChatId().toString(), mess);
 
@@ -94,10 +95,11 @@ public class RegComand implements Comand{
                 assert user != null;
                 user.setStavka(stavka);
                 user.setKurs(ParseKurce.getValuta(user.getValuta()).getKurs());
+                user.doRegistration++;
                 mess ="ДА/Нет="+"Оповещать об измениях курса между min и MAX?";
                 sendMessService = new SendMessInline();
                 sendMessService.send(message.getChatId().toString(), mess);
-                user.doRegistration++;
+
                 break;
             }
             case 5:{
@@ -105,25 +107,26 @@ public class RegComand implements Comand{
                 mess = "Регистрация завершена!";
                 sendMessService.send(message.getChatId().toString(), mess);
                 user.doRegistration = 0;
-                UserBox.saveUsers(new Serial());
+                UserBox.saveUsers(new DataBase());
                 System.out.println(user);
-
+                ComandBox comandBox = new ComandBox(new SendMessButton());
+                comandBox.useComand("BUTTON").execute(message);
                 break;
             }
 
 
             default : {
                 if (UserBox.getUser(message.getChatId().toString()) == null){
-                    UserBox.users.add(new User(message.getChatId().toString(), "", 0.0, 0.0, 0.0));
+                    UserBox.users.add(new User(message.getChatId().toString(),false, "", 0.0, 0.0, 0.0));
                     user=UserBox.getUser(message.getChatId().toString());}
                 else {
                     UserBox.getUser(message.getChatId().toString()).setMin(0.0);
                     UserBox.getUser(message.getChatId().toString()).setMax(0.0);
                     mess = "\n Вы зарегестрированы, меняем ваши данные!";}
                 mess += "\nВыберите валюту:";
-                user.doRegistration++;
+                user.doRegistration=1;
                 StringBuilder name = new StringBuilder();
-                for (Valuta n : ParseKurce.valutas) name.append(n.getName()).append("/");
+                ParseKurce.valutas.forEach(v->name.append(v.getName()).append("/"));
                 mess = name + "=" + mess;
                 sendMessService = new SendMessInline();
                 sendMessService.send(message.getChatId().toString(), mess);
